@@ -379,4 +379,19 @@ pub mod linked_list_tests {
             counter += 1;
         }
     }
+
+    #[test]
+    fn iterator_test() {
+        let mut list = LinkedList::<i8>::new();
+        for i in 0..=10 {
+            list.append(i);
+        }
+
+        let iterator = list.iter();
+
+        for (index, item) in iterator.enumerate() {
+            let i: i8 = index.try_into().unwrap();
+            assert_eq!(item, i);
+        }
+    }
 }
