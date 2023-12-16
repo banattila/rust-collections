@@ -394,4 +394,39 @@ pub mod linked_list_tests {
             assert_eq!(item, i);
         }
     }
+
+    #[test]
+    fn filter_with_iterator() {
+        let mut list = LinkedList::<i8>::new();
+
+        for i in 0..=10 {
+            list.append(i);
+        }
+
+        let iterator = list.iter();
+
+        let mut filtered_list: LinkedList<i8>= iterator.filter(|x| x % 2 == 0).collect();
+
+        for item in filtered_list.iter() {
+            assert!(item % 2 != 1);
+        }
+    }
+
+    #[test]
+    fn map_test_with_iterator() {
+        let mut list = LinkedList::<i8>::new();
+
+        for i in 0..=10 {
+            list.append(i);
+        }
+
+        assert!(!list.is_empty());
+
+        let mut mapped_list: LinkedList<i8> = list.iter().map(|item|  item * 2).collect();
+
+        for (index, item) in mapped_list.iter().enumerate() {
+            let i: i8 = index.try_into().unwrap();
+            assert_eq!(item, (i * 2));
+        }
+    }
 }

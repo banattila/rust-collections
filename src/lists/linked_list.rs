@@ -9,26 +9,6 @@ pub struct LinkedList<T>
         head: Option<Box<Node<T>>>
 }
 
-pub struct LinkedListIterator<'a, T> 
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
-    current: &'a Option<Box<Node<T>>>
-}
-
-impl<'a, T> Iterator for LinkedListIterator<'a, T> 
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
-    type Item = T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match self.current {
-            Some(node) => {
-                self.current = &node.next;
-                Some(node.get_data())
-            },
-            None => None,
-        }
-    }
-}
-
 impl<T> LinkedList<T>
     where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
 
@@ -64,6 +44,12 @@ impl<T> LinkedList<T>
         }
     }
 
+    pub fn iter(&mut self) -> LinkedListIterator<T> {
+        LinkedListIterator {
+            current: &self.head
+        }
+    }
+
     pub fn create_from_vec(vector: &Vec<T>) -> Self {
         let mut list = LinkedList::<T>::new();
 
@@ -93,12 +79,6 @@ impl<T> LinkedList<T>
     pub fn create_from_list(other_list: &LinkedList<T>) -> Self {
         Self {
             head: other_list.get_head()
-        }
-    }
-
-    pub fn iter(&self) -> LinkedListIterator<T> {
-        LinkedListIterator {
-            current: &self.head,
         }
     }
 
@@ -187,10 +167,41 @@ impl<T> List<T> for LinkedList<T>
             }
         }
     }
-    fn filter<'a>(&self, filter: Box<dyn Fn(&T) -> bool>) -> Self{
-        let list = Self::new();
+}
 
+pub struct LinkedListIterator<'a, T> 
+where
+T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
+{
+    current: &'a Option<Box<Node<T>>>
+}
 
+impl<'a, T> Iterator for LinkedListIterator<'a, T> 
+where
+T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
+{
+    type Item = T;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        match self.current {
+            Some(node) => {
+                self.current = &node.next;
+                Some(node.get_data())
+            },
+            None => None,
+        }
+    }
+}
+
+impl<T> FromIterator<T> for LinkedList<T> 
+where
+T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
+{
+    fn from_iter<I>(iter: I) -> Self 
+    where I: IntoIterator<Item = T>
+    {
+        let elements: Vec<T> = iter.into_iter().collect();
+        let list = LinkedList::create_from_vec(&elements);
 
         list
     }

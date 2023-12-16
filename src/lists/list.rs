@@ -5,5 +5,4 @@ pub trait List<T>
 
         fn remove(&mut self, data: T) -> Result<String, String>;
         fn get(&self, index: usize) -> Result<T, String>;
-        fn filter<'a>(&self, filter: Box<dyn Fn(&T) -> bool>) -> Self;
 }
