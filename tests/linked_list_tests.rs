@@ -410,6 +410,11 @@ pub mod linked_list_tests {
         for item in filtered_list.iter() {
             assert!(item % 2 != 1);
         }
+
+        for (index, item) in list.iter().enumerate() {
+            let i: i8 = index.try_into().unwrap();
+            assert_eq!(item, i);
+        }
     }
 
     #[test]
@@ -427,6 +432,11 @@ pub mod linked_list_tests {
         for (index, item) in mapped_list.iter().enumerate() {
             let i: i8 = index.try_into().unwrap();
             assert_eq!(item, (i * 2));
+        }
+
+        for (index, item) in list.iter().enumerate() {
+            let i: i8 = index.try_into().unwrap();
+            assert_eq!(item, i);
         }
     }
 }
