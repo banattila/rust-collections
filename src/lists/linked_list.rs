@@ -161,4 +161,9 @@ impl<T> List<T> for LinkedList<T>
             }
         }
     }
+    fn filter<'a>(&self, filter: Box<dyn Fn(&T) -> bool>) -> Self{
+        let list = Self::new();
+
+        list
+    }
 }

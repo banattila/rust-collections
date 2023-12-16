@@ -378,6 +378,5 @@ pub mod linked_list_tests {
             assert_eq!(original_value, copied_value);
             counter += 1;
         }
-
     }
 }
