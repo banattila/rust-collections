@@ -1,8 +1,7 @@
 use std::fmt::Debug;
 
 use crate::lists::traits::collections::Collections;
-
-use super::queue_node::QueueNode;
+use crate::lists::nodes_mod::queue_node::QueueNode;
 
 #[derive(Debug, Clone)]
 pub struct Queue<T>

@@ -1,6 +1,7 @@
 #[cfg(test)] 
 pub mod linked_list_tests {
-    use collection::lists::linked_list_mod::{linked_list::LinkedList, node::Node};
+    use collection::lists::linked_list_mod::linked_list::LinkedList;
+    use collection::lists::nodes_mod::node::Node;
     use collection::lists::traits::{collections::Collections, list::List};
 
 

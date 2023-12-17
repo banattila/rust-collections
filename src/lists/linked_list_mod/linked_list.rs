@@ -1,8 +1,8 @@
 use std::fmt::Debug;
 
 use crate::lists::traits::{collections::Collections, list::List};
-
-use super::{node::Node, linked_list_iterator::LinkedListIterator};
+use crate::lists::nodes_mod::node::Node;
+use super::linked_list_iterator::LinkedListIterator;
 
 
 #[derive(Debug, Clone)]

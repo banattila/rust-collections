@@ -1,6 +1,6 @@
 use std::fmt::Debug;
 
-use super::node::Node;
+use crate::lists::nodes_mod::node::Node;
 
 pub struct LinkedListIterator<'a, T> 
 where

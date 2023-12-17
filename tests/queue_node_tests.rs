@@ -1,7 +1,8 @@
 #[cfg(test)]
 pub mod queue_node_tests {
+    use collection::lists::nodes_mod::queue_node::QueueNode;
 
-    use collection::lists::queue_mod::queue_node::QueueNode;
+
 
     #[test]
     fn create_node() {

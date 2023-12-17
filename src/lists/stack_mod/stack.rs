@@ -1,15 +1,15 @@
 use std::fmt::Debug;
 
+use crate::lists::nodes_mod::node::Node;
 use crate::lists::traits::collections::Collections;
 
-use super::stack_node::StackNode;
 
 #[derive(Clone, Debug)]
 pub struct Stack<T> 
 where 
 T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 {
-    head: Option<Box<StackNode<T>>>,
+    head: Option<Box<Node<T>>>,
 }
 
 impl<T> Stack<T>
@@ -22,11 +22,11 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
         }
     }
 
-    pub fn get_head(&mut self) -> &mut Option<Box<StackNode<T>>> {
+    pub fn get_head(&mut self) -> &mut Option<Box<Node<T>>> {
         &mut self.head
     }
 
-    pub fn set_head(&mut self, other_node: StackNode<T>) {
+    pub fn set_head(&mut self, other_node: Node<T>) {
         self.head = Some(Box::new(other_node));
     }
 
@@ -55,14 +55,14 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 
     fn add(&mut self, data: T) {
         
-        let mut new_node = StackNode::new(data);
+        let mut new_node = Node::new(data);
         
         if self.is_empty() {
             self.head = Some(Box::new(new_node));
 
         }
         else {
-            new_node.set_next(self.head.take());
+            new_node.next = self.head.take();
             self.head = Some(Box::new(new_node));
         }
     }

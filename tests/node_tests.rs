@@ -1,6 +1,7 @@
 #[cfg(test)]
 pub mod node_tests {
-    use collection::lists::linked_list_mod::node::Node;
+    use collection::lists::nodes_mod::node::Node;
+
 
 
     #[test]
