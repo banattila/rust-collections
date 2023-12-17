@@ -128,20 +128,19 @@ pub mod stack_tests {
 
         assert!(!stack.is_empty());
 
-        match stack.pop() {
-            None => test_paniced(),
-            Some(item) => {
-                assert!(!stack.is_empty());
-                assert_eq!(item, 10);
-            },
-        }
-
-        match stack.pop() {
-            None => test_paniced(),
-            Some(item) => {
-                assert!(!stack.is_empty());
-                assert_eq!(item, 9);
-            },
+        for i in 0..=10 {
+            match stack.pop() {
+                None => test_paniced(),
+                Some(item) => {
+                    assert_eq!(item, 10 - i);
+                    if i < 10 {
+                        assert!(!stack.is_empty());
+                    }
+                    else {
+                        assert!(stack.is_empty());
+                    }
+                },
+            }
         }
     }
 }

@@ -6,8 +6,7 @@ where
 T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 {
     data: T,
-    next: Option<Box<QueueNode<T>>>,
-    previous: Option<Box<QueueNode<T>>>,
+    pub previous: Option<Box<QueueNode<T>>>,
 }
 
 impl<T> QueueNode<T>
@@ -17,13 +16,8 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
     pub fn new(data: T) -> Self {
         Self {
             data: data,
-            next: None,
             previous: None,
         }
-    }
-
-    pub fn has_next(&self) -> bool {
-        self.next.is_some()
     }
 
     pub fn has_previous(&self) -> bool {
@@ -38,22 +32,12 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
         self.data = new_data.clone();
     }
 
-    pub fn set_next(&mut self, mut next_node: QueueNode<T>) {
-        next_node.previous = Some(Box::new(self.clone()));
-        self.next = Some(Box::new(next_node));
-
-    }
-
-    pub fn set_prevoius(&mut self, mut prev_node: QueueNode<T>) {
-        prev_node.next = Some(Box::new(self.clone()));
+    pub fn set_previous(&mut self, prev_node: QueueNode<T>) {
         self.previous = Some(Box::new(prev_node));
     }
 
-    pub fn get_next(&mut self) -> &mut Option<Box<QueueNode<T>>> {
-        &mut self.next
+    pub fn get_previous(&self) -> &Option<Box<QueueNode<T>>> {
+        &self.previous
     }
 
-    pub fn get_previous(&mut self) -> &mut Option<Box<QueueNode<T>>> {
-        &mut self.previous
-    }
 }
