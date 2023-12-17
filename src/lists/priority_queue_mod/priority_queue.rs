@@ -9,6 +9,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 {
     tail: Option<Box<QueueNode<T>>>,
     min: bool,
+    size: usize,
 }
 
 impl<T> PriorityQueue<T> 
@@ -19,6 +20,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
         Self {
             tail: None,
             min: min,
+            size: 0,
         }
     }
 
@@ -31,6 +33,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
             Some(node) => {
                 let result = node.get_data();
                 *current = node.previous.take();
+                self.size -= 1;
                 return Ok(result);
             }
         }
@@ -50,18 +53,21 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
             match current {
                 None => {
                     *current = Some(new_node);
+                    self.size += 1;
                     return;
                 },
                 Some(ref mut node) if self.min && node.get_data() >= data.clone()=> {
                     let mut new_node = QueueNode::new(data.clone());
                     new_node.previous = Some(Box::new(std::mem::replace(node, QueueNode::new(data.clone()))));
                     *current = Some(Box::new(new_node));
+                    self.size += 1;
                     return;
                     },
                 Some(ref mut node) if !self.min && node.get_data() <= data.clone()=> {
                     let mut new_node = QueueNode::new(data.clone());
                     new_node.previous = Some(Box::new(std::mem::replace(node, QueueNode::new(data.clone()))));
                     *current = Some(Box::new(new_node));
+                    self.size += 1;
                     return;
                     },
                 Some(node) => {
@@ -73,5 +79,9 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 
     fn is_empty(&self) -> bool {
         self.tail.is_none()
+    }
+
+    fn get_size(&self) -> usize {
+        self.size
     }
 }

@@ -12,6 +12,7 @@ pub mod stack_tests {
         let stack = Stack::<i8>::new();
 
         assert!(stack.is_empty());
+        assert_eq!(stack.get_size(), 0);
     }
 
     #[test]
@@ -20,10 +21,12 @@ pub mod stack_tests {
         let mut stack = Stack::<i8>::new();
 
         assert!(stack.is_empty());
+        assert_eq!(stack.get_size(), 0);
 
         stack.add(data);
 
         assert!(!stack.is_empty());
+        assert_eq!(stack.get_size(), 1);
 
         match stack.get_head() {
             None => test_paniced(),
@@ -52,6 +55,7 @@ pub mod stack_tests {
 
         stack.add(data_two);
         assert!(!stack.is_empty());
+        assert_eq!(stack.get_size(), 2);
 
         match stack.get_head() {
             None => test_paniced(),
@@ -65,10 +69,12 @@ pub mod stack_tests {
         let mut stack = Stack::<i8>::new();
 
         assert!(stack.is_empty());
+        assert_eq!(stack.get_size(), 0);
 
         for i in 0..=10 {
             stack.add(i);
         }
+        assert_eq!(stack.get_size(), 11);
 
         assert!(!stack.is_empty());
 
@@ -90,6 +96,7 @@ pub mod stack_tests {
             None => assert!(stack.is_empty()),
             Some(_) => test_paniced()
         }
+        assert_eq!(stack.get_size(), 0);
     }
 
     #[test]
@@ -105,6 +112,7 @@ pub mod stack_tests {
         }
 
         stack.add(data);
+        assert_eq!(stack.get_size(), 1);
 
         assert!(!stack.is_empty());
 
@@ -115,16 +123,19 @@ pub mod stack_tests {
                 assert_eq!(item, data);
             },
         }
+        assert_eq!(stack.get_size(), 0);
     }
 
     #[test]
     fn test_pop_if_stack_has_many_element() {
         let mut stack = Stack::<i8>::new();
         assert!(stack.is_empty());
+        assert_eq!(stack.get_size(), 0);
 
         for i in 0..=10 {
             stack.add(i);
         }
+        assert_eq!(stack.get_size(), 11);
 
         assert!(!stack.is_empty());
 
@@ -142,5 +153,6 @@ pub mod stack_tests {
                 },
             }
         }
+        assert_eq!(stack.get_size(), 0);
     }
 }

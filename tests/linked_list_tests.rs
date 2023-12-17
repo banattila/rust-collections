@@ -13,6 +13,8 @@ pub mod linked_list_tests {
     fn create_list() {
         let list = LinkedList::<i8>::new();
         assert!(list.is_empty());
+
+        assert_eq!(list.get_size(), 0);
     }
 
     #[test]
@@ -45,9 +47,11 @@ pub mod linked_list_tests {
         list.add(data);
 
         assert!(!list.is_empty());
+        assert_eq!(list.get_size(), 1);
 
         if let Some(head) = list.get_head() {
             assert_eq!(head.get_data(), data);
+            assert_eq!(list.get_size(), 1);
         }
         else {
             test_paniced();
@@ -116,6 +120,7 @@ pub mod linked_list_tests {
         let data_two = 3i8;
         let mut list = LinkedList::<i8>::new();
         list.add(data);
+        assert_eq!(list.get_size(), 1);
 
         assert!(!list.is_empty());
 
@@ -123,9 +128,11 @@ pub mod linked_list_tests {
             Ok(msg) => assert_eq!(msg, "Item removed".to_string()),
             Err(_) => test_paniced(),
         }
-
+        assert_eq!(list.get_size(), 0);
         list.add(data);
         list.add(data_two);
+
+        assert_eq!(list.get_size(), 2);
 
         match list.remove(data_two) {
             Ok(msg) => {
@@ -139,6 +146,7 @@ pub mod linked_list_tests {
             },
             Err(_) => test_paniced(),
         }
+        assert_eq!(list.get_size(), 1);
     }
 
     #[test]
@@ -152,6 +160,8 @@ pub mod linked_list_tests {
         list.add(data_one);
         list.add(data_two);
         list.add(data_three);
+
+        assert_eq!(list.get_size(), 3);
 
         assert!(!list.is_empty());
 
@@ -175,6 +185,7 @@ pub mod linked_list_tests {
             },
             Err(_) => test_paniced(),
         }
+        assert_eq!(list.get_size(), 2);
     }
 
     #[test]
@@ -210,6 +221,7 @@ pub mod linked_list_tests {
         list.append(data);
 
         assert!(!list.is_empty());
+        assert_eq!(list.get_size(), 1);
 
         if let Some(head) = list.get_head() {
             assert_eq!(head.get_data(), data);
@@ -233,6 +245,7 @@ pub mod linked_list_tests {
 
         assert!(!list.is_empty());
         assert!(list.contains(data_one));
+        assert_eq!(list.get_size(), 1);
 
         if let Some(head) = list.get_head() {
             assert_eq!(head.get_data(), data_one);
@@ -242,6 +255,7 @@ pub mod linked_list_tests {
         }
 
         list.append(data_two);
+        assert_eq!(list.get_size(), 2);
 
         assert!(list.contains(data_two));
 
@@ -253,6 +267,7 @@ pub mod linked_list_tests {
         }
 
         list.append(data_three);
+        assert_eq!(list.get_size(), 3);
 
         assert!(list.contains(data_three));
 
@@ -330,6 +345,7 @@ pub mod linked_list_tests {
         let vector: Vec<i8> = vec![1, 2, 3, 4, 5, 6];
 
         let list = LinkedList::create_from_vec(&vector);
+        assert_eq!(list.get_size(), 6);
 
         for (index, item) in vector.into_iter().enumerate() {
             match  list.get(index){
@@ -365,6 +381,7 @@ pub mod linked_list_tests {
         for i in 0..=10 {
             original.append(i);
         }
+        assert_eq!(original.get_size(), 11);
 
         let copied = LinkedList::create_from_list(&original);
         let mut counter = 0;

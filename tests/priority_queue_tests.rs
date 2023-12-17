@@ -1,6 +1,6 @@
 #[cfg(test)]
 pub mod priority_queue_tests {
-    use collection::lists::{priority_queue_mod::priority_queue::PriorityQueue, traits::collections::Collections, queue_mod::queue::Queue};
+    use collection::lists::{priority_queue_mod::priority_queue::PriorityQueue, traits::collections::Collections};
     use rand::Rng;
 
 
@@ -12,6 +12,8 @@ pub mod priority_queue_tests {
     fn create_prior_queue() {
         let p_queue = PriorityQueue::<i8>::new(true);
         assert!(p_queue.is_empty());
+
+        assert_eq!(p_queue.get_size(), 0);
     }
 
     #[test]
@@ -29,6 +31,7 @@ pub mod priority_queue_tests {
         assert!(!p_queue.is_empty());
         p_queue.add(data_three);
         assert!(!p_queue.is_empty());
+        assert_eq!(p_queue.get_size(), 3);
 
     }
 
@@ -41,6 +44,8 @@ pub mod priority_queue_tests {
             Ok(_) => test_paniced(),
             Err(msg) => assert_eq!(msg, "Queue is empty".to_string()),
         }
+
+        assert_eq!(p_queue.get_size(), 0);
     }
 
     #[test]
@@ -52,10 +57,10 @@ pub mod priority_queue_tests {
 
         for _ in 0..=10 {
             let random: i8 = rng.gen_range(0..=100);
-            dbg!(&random);
             p_queue.add(random);
         }
-        dbg!(&p_queue);
+
+        assert_eq!(p_queue.get_size(), 11);
 
         let mut prev_number: i8 = 0;
         match p_queue.dequeue() {
@@ -72,6 +77,7 @@ pub mod priority_queue_tests {
                 },
             }
         }
+        assert_eq!(p_queue.get_size(), 0);
     }
 
     #[test]
@@ -83,10 +89,9 @@ pub mod priority_queue_tests {
 
         for _ in 0..=10 {
             let random: i8 = rng.gen_range(0..=100);
-            dbg!(&random);
             p_queue.add(random);
         }
-        dbg!(&p_queue);
+        assert_eq!(p_queue.get_size(), 11);
 
         let mut prev_number: i8 = 120;
         match p_queue.dequeue() {
@@ -103,5 +108,6 @@ pub mod priority_queue_tests {
                 },
             }
         }
+        assert_eq!(p_queue.get_size(), 0);
     }
 }

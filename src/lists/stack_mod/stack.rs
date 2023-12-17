@@ -10,6 +10,7 @@ where
 T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 {
     head: Option<Box<Node<T>>>,
+    size: usize,
 }
 
 impl<T> Stack<T>
@@ -19,6 +20,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
     pub fn new() -> Self {
         Self {
             head: None,
+            size: 0,
         }
     }
 
@@ -39,6 +41,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
             Some(node) => {
                 let result = node.get_data();
                 *head = node.get_next().take();
+                self.size -= 1;
                 return Some(result);
             }
         }
@@ -65,5 +68,9 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
             new_node.next = self.head.take();
             self.head = Some(Box::new(new_node));
         }
+        self.size += 1;
+    }
+    fn get_size(&self) -> usize {
+        self.size
     }
 }

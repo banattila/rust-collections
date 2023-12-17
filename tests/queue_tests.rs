@@ -13,6 +13,7 @@ pub mod queue_tests {
         let queue = Queue::<i8>::new();
 
         assert!(queue.is_empty());
+        assert_eq!(queue.get_size(), 0);
     }
 
     #[test]
@@ -66,6 +67,8 @@ pub mod queue_tests {
             Ok(_) => test_paniced(),
             Err(msg) => assert_eq!(msg, "Queue is empty".to_string()),
         }
+
+        assert_eq!(queue.get_size(), 0);
     }
 
     #[test]
@@ -77,6 +80,7 @@ pub mod queue_tests {
 
         queue.add(data);
         assert!(!queue.is_empty());
+        assert_eq!(queue.get_size(), 1);
 
         match queue.dequeue() {
             Err(_) => test_paniced(),
@@ -85,6 +89,8 @@ pub mod queue_tests {
                 assert!(queue.is_empty());
             }
         }
+
+        assert_eq!(queue.get_size(), 0);
     }
 
     #[test]
@@ -96,6 +102,8 @@ pub mod queue_tests {
         for i in 0..=10 {
             queue.add(i);
         }
+
+        assert_eq!(queue.get_size(), 11);
 
         assert!(!queue.is_empty());
 
@@ -113,5 +121,6 @@ pub mod queue_tests {
                 }
             }
         }
+        assert_eq!(queue.get_size(), 0);
     }
 }

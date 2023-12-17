@@ -9,6 +9,7 @@ where
 T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 {
     tail: Option<Box<QueueNode<T>>>,
+    size: usize,
 }
 
 impl<T> Queue<T> 
@@ -18,6 +19,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
     pub fn new() -> Self {
         Self {
             tail: None,
+            size: 0,
         }
     }
 
@@ -33,6 +35,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
             Some(node) => {
                 let result = node.get_data();
                 *current = node.previous.take();
+                self.size -= 1;
                 return Ok(result);
             },
         }
@@ -51,6 +54,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
             match current {
                 None => {
                     *current = Some(Box::new(QueueNode::new(data.clone())));
+                    self.size += 1;
                     return;
                 },
                 Some(node) => {
@@ -62,5 +66,9 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 
     fn is_empty(&self) -> bool {
         self.tail.is_none()
+    }
+
+    fn get_size(&self) -> usize {
+        self.size
     }
 }

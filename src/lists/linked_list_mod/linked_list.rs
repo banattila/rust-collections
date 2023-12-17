@@ -10,6 +10,7 @@ pub struct LinkedList<T>
     where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
 
         head: Option<Box<Node<T>>>,
+        size: usize,
 }
 
 impl<T> LinkedList<T>
@@ -18,6 +19,7 @@ impl<T> LinkedList<T>
     pub fn new() -> Self {
         Self {
             head: None,
+            size: 0,
         }
     }
 
@@ -38,6 +40,7 @@ impl<T> LinkedList<T>
                 None => {
                     let new_node = Some(Box::new(Node::new(data.clone())));
                     *current = new_node;
+                    self.size += 1;
                     return;
                 },
                 Some(node) => {
@@ -79,7 +82,8 @@ impl<T> LinkedList<T>
 
     pub fn create_from_list(other_list: &LinkedList<T>) -> Self {
         Self {
-            head: other_list.get_head()
+            head: other_list.get_head(),
+            size: other_list.get_size(),
         }
     }
 
@@ -104,6 +108,11 @@ impl<T> Collections<T> for LinkedList<T>
         else {
             self.set_head(new_node);
         }
+        self.size += 1;
+    }
+
+    fn get_size(&self) -> usize {
+        self.size
     }
 }
 
@@ -123,6 +132,7 @@ impl<T> List<T> for LinkedList<T>
                 None => return Err("Item not found".to_string()),
                 Some(ref mut node) if node.get_data() == data => {
                     *current = node.next.take();
+                    self.size -= 1;
                     return Ok("Item removed".to_string());
                 },
                 Some(node) => {
