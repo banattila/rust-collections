@@ -105,23 +105,6 @@ impl<T> Collections<T> for LinkedList<T>
             self.set_head(new_node);
         }
     }
-
-    fn contains(&self, data: T) -> bool {
-        
-        let mut current = &mut self.get_head();
-
-        loop {
-            match current {
-                None => return false,
-                Some(node) if node.get_data() == data => {
-                    return true;
-                },
-                Some(node) => {
-                    current = &mut node.next;
-                }
-            }
-        }
-    }
 }
 
 impl<T> List<T> for LinkedList<T> 
@@ -164,6 +147,22 @@ impl<T> List<T> for LinkedList<T>
                 Some(node) => {
                     current = node.get_next();
                     counter += 1;
+                }
+            }
+        }
+    }
+    fn contains(&self, data: T) -> bool {
+        
+        let mut current = &mut self.get_head();
+
+        loop {
+            match current {
+                None => return false,
+                Some(node) if node.get_data() == data => {
+                    return true;
+                },
+                Some(node) => {
+                    current = &mut node.next;
                 }
             }
         }
