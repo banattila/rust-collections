@@ -1,6 +1,6 @@
 use std::fmt::Debug;
 
-use crate::lists::{collections::Collections, list::List};
+use crate::lists::traits::{collections::Collections, list::List};
 
 use super::{node::Node, linked_list_iterator::LinkedListIterator};
 

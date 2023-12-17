@@ -1,8 +1,7 @@
 #[cfg(test)] 
 pub mod linked_list_tests {
     use collection::lists::linked_list_mod::{linked_list::LinkedList, node::Node};
-    use collection::lists::collections::Collections;
-    use collection::lists::list::List;
+    use collection::lists::traits::{collections::Collections, list::List};
 
 
     fn test_paniced() {
