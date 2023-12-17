@@ -4,6 +4,7 @@ use crate::lists::traits::collections::Collections;
 
 use super::stack_node::StackNode;
 
+#[derive(Clone, Debug)]
 pub struct Stack<T> 
 where 
 T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
@@ -27,6 +28,20 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
 
     pub fn set_head(&mut self, other_node: StackNode<T>) {
         self.head = Some(Box::new(other_node));
+    }
+
+    pub fn pop(&mut self) -> Option<T> {
+
+        let head = &mut self.head;
+
+        match head {
+            None => return None,
+            Some(node) => {
+                let result = node.get_data();
+                *head = node.get_next().take();
+                return Some(result);
+            }
+        }
     }
 }
 

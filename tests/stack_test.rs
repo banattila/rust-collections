@@ -80,4 +80,68 @@ pub mod stack_tests {
             },
         }
     }
+    #[test]
+    fn test_pop_if_stack_is_empty() {
+        let mut stack = Stack::<i8>::new();
+
+        assert!(stack.is_empty());
+
+        match stack.pop() {
+            None => assert!(stack.is_empty()),
+            Some(_) => test_paniced()
+        }
+    }
+
+    #[test]
+    fn test_pop_if_stack_has_one_element() {
+        let data = 2i8;
+        let mut stack = Stack::<i8>::new();
+
+        assert!(stack.is_empty());
+
+        match stack.pop() {
+            None => assert!(stack.is_empty()),
+            Some(_) => test_paniced()
+        }
+
+        stack.add(data);
+
+        assert!(!stack.is_empty());
+
+        match stack.pop() {
+            None => test_paniced(),
+            Some(item) => {
+                assert!(stack.is_empty());
+                assert_eq!(item, data);
+            },
+        }
+    }
+
+    #[test]
+    fn test_pop_if_stack_has_many_element() {
+        let mut stack = Stack::<i8>::new();
+        assert!(stack.is_empty());
+
+        for i in 0..=10 {
+            stack.add(i);
+        }
+
+        assert!(!stack.is_empty());
+
+        match stack.pop() {
+            None => test_paniced(),
+            Some(item) => {
+                assert!(!stack.is_empty());
+                assert_eq!(item, 10);
+            },
+        }
+
+        match stack.pop() {
+            None => test_paniced(),
+            Some(item) => {
+                assert!(!stack.is_empty());
+                assert_eq!(item, 9);
+            },
+        }
+    }
 }
