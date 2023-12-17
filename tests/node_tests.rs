@@ -23,7 +23,7 @@ pub mod node_tests {
         assert!(!node.has_next());
         assert_eq!(node.get_data(), data_first);
 
-        node.set_data(data_second);
+        node.set_data(&data_second);
         assert!(!node.has_next());
         assert_eq!(node.get_data(), data_second);
     }

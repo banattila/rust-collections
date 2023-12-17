@@ -24,8 +24,8 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
         self.data.clone()
     }
 
-    pub fn set_data(&mut self, data: T) {
-        self.data = data;
+    pub fn set_data(&mut self, data: &T) {
+        self.data = data.clone();
     }
 
     pub fn get_next(&mut self) -> &mut Option<Box<StackNode<T>>> {

@@ -45,7 +45,7 @@ pub mod stack_node_test {
         assert!(!node.has_next());
         assert_eq!(node.get_data(), data_one);
 
-        node.set_data(data_two);
+        node.set_data(&data_two);
 
         assert!(!node.has_next());
         assert_eq!(node.get_data(), data_two);
