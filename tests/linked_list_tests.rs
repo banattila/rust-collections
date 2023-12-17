@@ -1,7 +1,9 @@
 #[cfg(test)] 
 pub mod linked_list_tests {
+    use collection::lists::linked_list_mod::{linked_list::LinkedList, node::Node};
+    use collection::lists::collections::Collections;
+    use collection::lists::list::List;
 
-    use collection::lists::{linked_list::LinkedList, collections::Collections, node::Node, list::List};
 
     fn test_paniced() {
         panic!("{}", "Test failed");
@@ -387,7 +389,7 @@ pub mod linked_list_tests {
             list.append(i);
         }
 
-        let iterator = list.iter();
+        let iterator = list.into_iter();
 
         for (index, item) in iterator.enumerate() {
             let i: i8 = index.try_into().unwrap();
@@ -403,15 +405,15 @@ pub mod linked_list_tests {
             list.append(i);
         }
 
-        let iterator = list.iter();
+        let iterator = list.into_iter();
 
         let mut filtered_list: LinkedList<i8>= iterator.filter(|x| x % 2 == 0).collect();
 
-        for item in filtered_list.iter() {
+        for item in filtered_list.into_iter() {
             assert!(item % 2 != 1);
         }
 
-        for (index, item) in list.iter().enumerate() {
+        for (index, item) in list.into_iter().enumerate() {
             let i: i8 = index.try_into().unwrap();
             assert_eq!(item, i);
         }
@@ -427,14 +429,14 @@ pub mod linked_list_tests {
 
         assert!(!list.is_empty());
 
-        let mut mapped_list: LinkedList<i8> = list.iter().map(|item|  item * 2).collect();
+        let mut mapped_list: LinkedList<i8> = list.into_iter().map(|item|  item * 2).collect();
 
-        for (index, item) in mapped_list.iter().enumerate() {
+        for (index, item) in mapped_list.into_iter().enumerate() {
             let i: i8 = index.try_into().unwrap();
             assert_eq!(item, (i * 2));
         }
 
-        for (index, item) in list.iter().enumerate() {
+        for (index, item) in list.into_iter().enumerate() {
             let i: i8 = index.try_into().unwrap();
             assert_eq!(item, i);
         }

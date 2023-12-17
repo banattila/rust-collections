@@ -1,4 +1,3 @@
-pub mod node;
-pub mod linked_list;
+pub mod linked_list_mod;
 pub mod collections;
 pub mod list;

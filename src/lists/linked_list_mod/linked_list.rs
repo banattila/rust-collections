@@ -1,12 +1,15 @@
 use std::fmt::Debug;
 
-use super::{node::Node, collections::Collections, list::List};
+use crate::lists::{collections::Collections, list::List};
+
+use super::{node::Node, linked_list_iterator::LinkedListIterator};
+
 
 #[derive(Debug, Clone)]
 pub struct LinkedList<T> 
     where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
 
-        head: Option<Box<Node<T>>>
+        head: Option<Box<Node<T>>>,
 }
 
 impl<T> LinkedList<T>
@@ -44,10 +47,8 @@ impl<T> LinkedList<T>
         }
     }
 
-    pub fn iter(&mut self) -> LinkedListIterator<T> {
-        LinkedListIterator {
-            current: &self.head
-        }
+    pub fn into_iter(&mut self) -> LinkedListIterator<T> {
+        LinkedListIterator::new(&self.head)
     }
 
     pub fn create_from_vec(vector: &Vec<T>) -> Self {
@@ -165,30 +166,6 @@ impl<T> List<T> for LinkedList<T>
                     counter += 1;
                 }
             }
-        }
-    }
-}
-
-pub struct LinkedListIterator<'a, T> 
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
-    current: &'a Option<Box<Node<T>>>
-}
-
-impl<'a, T> Iterator for LinkedListIterator<'a, T> 
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
-    type Item = T;
-
-    fn next(&mut self) -> Option<Self::Item> {
-        match self.current {
-            Some(node) => {
-                self.current = &node.next;
-                Some(node.get_data())
-            },
-            None => None,
         }
     }
 }
