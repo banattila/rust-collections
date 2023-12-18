@@ -4,3 +4,4 @@ pub mod stack_mod;
 pub mod queue_mod;
 pub mod priority_queue_mod;
 pub mod nodes_mod;
+pub mod array_list_mod;
