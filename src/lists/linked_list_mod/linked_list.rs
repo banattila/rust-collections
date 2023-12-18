@@ -6,15 +6,12 @@ use super::linked_list_iterator::LinkedListIterator;
 
 
 #[derive(Debug, Clone)]
-pub struct LinkedList<T> 
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
-
+pub struct LinkedList<T: Clone> {
         head: Option<Box<Node<T>>>,
         size: usize,
 }
 
-impl<T> LinkedList<T>
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
+impl<T: Clone> LinkedList<T> {
 
     pub fn new() -> Self {
         Self {
@@ -89,8 +86,7 @@ impl<T> LinkedList<T>
 
 }
 
-impl<T> Collections<T> for LinkedList<T>
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
+impl<T: Clone> Collections<T> for LinkedList<T> {
         
     fn is_empty(&self) -> bool {
         self.head.is_none()
@@ -116,8 +112,7 @@ impl<T> Collections<T> for LinkedList<T>
     }
 }
 
-impl<T> List<T> for LinkedList<T> 
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
+impl<T: Clone + PartialEq> List<T> for LinkedList<T> {
     
     fn remove(&mut self, data: T) -> Result<String, String> {
         
@@ -179,10 +174,7 @@ impl<T> List<T> for LinkedList<T>
     }
 }
 
-impl<T> FromIterator<T> for LinkedList<T> 
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+impl<T: Clone> FromIterator<T> for LinkedList<T> {
     fn from_iter<I>(iter: I) -> Self 
     where I: IntoIterator<Item = T>
     {

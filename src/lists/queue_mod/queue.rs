@@ -4,18 +4,12 @@ use crate::lists::traits::collections::Collections;
 use crate::lists::nodes_mod::queue_node::QueueNode;
 
 #[derive(Debug, Clone)]
-pub struct Queue<T>
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+pub struct Queue<T: Clone> {
     tail: Option<Box<QueueNode<T>>>,
     size: usize,
 }
 
-impl<T> Queue<T> 
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+impl<T: Clone> Queue<T> {
     pub fn new() -> Self {
         Self {
             tail: None,
@@ -42,9 +36,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
     }
 }
 
-impl<T> Collections<T> for Queue<T>
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
+impl<T: Clone> Collections<T> for Queue<T> 
 {
     fn add(&mut self, data: T) {
 

@@ -3,19 +3,13 @@ use std::fmt::Debug;
 use crate::lists::{nodes_mod::queue_node::QueueNode, traits::collections::Collections};
 
 #[derive(Debug, Clone)]
-pub struct PriorityQueue<T>
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+pub struct PriorityQueue<T: Clone> {
     tail: Option<Box<QueueNode<T>>>,
     min: bool,
     size: usize,
 }
 
-impl<T> PriorityQueue<T> 
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+impl<T: Clone + PartialOrd> PriorityQueue<T> {
     pub fn new(min: bool) -> Self {
         Self {
             tail: None,
@@ -40,10 +34,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
     }
 }
 
-impl<T> Collections<T> for PriorityQueue<T> 
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+impl<T: Clone + PartialOrd> Collections<T> for PriorityQueue<T> {
     fn add(&mut self, data: T) {
 
         let new_node = Box::new(QueueNode::new(data.clone()));

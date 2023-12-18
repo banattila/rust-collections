@@ -5,18 +5,12 @@ use crate::lists::traits::collections::Collections;
 
 
 #[derive(Clone, Debug)]
-pub struct Stack<T> 
-where 
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+pub struct Stack<T: Clone> {
     head: Option<Box<Node<T>>>,
     size: usize,
 }
 
-impl<T> Stack<T>
-where
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+impl<T: Clone> Stack<T> {
     pub fn new() -> Self {
         Self {
             head: None,
@@ -48,10 +42,7 @@ T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
     }
 }
 
-impl<T> Collections<T> for Stack<T>
-where 
-T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord,
-{
+impl<T: Clone> Collections<T> for Stack<T> {
     fn is_empty(&self) -> bool {
         self.head.is_none()
     }

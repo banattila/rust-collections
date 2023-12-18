@@ -2,14 +2,12 @@ use std::fmt::Debug;
 
 #[derive(Debug, Clone)]
 
-pub struct Node<T> 
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
+pub struct Node<T: Clone> {
         data: T,
         pub next: Option<Box<Node<T>>>,
 }
 
-impl<T> Node<T>
-    where T: Clone + Debug + PartialEq + PartialOrd + Eq + Ord {
+impl<T: Clone> Node<T> {
     
     pub fn new(data: T) -> Self {
         Self {
